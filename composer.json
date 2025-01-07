@@ -1,5 +1,5 @@
 {
-    "name": "kho8kManager/upload-file-plus",
+    "name": "kho8k-manager/upload-file-plus",
     "description": "An extension of laravel-admin for uploading large files",
     "type": "library",
     "keywords": ["laravel-admin", "extension"],
