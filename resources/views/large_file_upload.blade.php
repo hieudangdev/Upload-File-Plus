@@ -11,17 +11,28 @@
             </div>
             <span style="font-size:12px;color:#aaa;" id="{{$name}}-output"></span>
             <input type="hidden" name="{{$name}}" id="{{$name}}-savedpath" value="{{ old($column, $value) }}">
-
         </div>
+
+        <a id='watch_linkvideo' href="#" target="_blank">Xem video</a>
+
+
         @include('admin::form.help-block')
     </div>
+
 </div>
 
 <script >
-    let xpath= '#episodes\\[new_'+index+'\\]\\[{{$id}}\\]'
-    $(xpath+'-resource').bootstrapFileInput();
-    $(xpath+'-resource').on('change', function() {
-        aetherupload('episodes\\[new_'+index+'\\]\\[{{$id}}\\]', this).setGroup('file').setSavedPathField(xpath+'-savedpath').setPreprocessRoute('/aetherupload/preprocess').setUploadingRoute('/aetherupload/uploading').setLaxMode(false).success().upload('episodes\\[new_'+index+'\\]\\[{{$id}}\\]')
+
+    if (typeof index !== 'undefined') {
+        let xpath= '#episodes\\[new_'+index+'\\]\\[{{$id}}\\]'
+        $(xpath+'-resource').bootstrapFileInput();
+        $(xpath+'-resource').on('change', function() {
+            aetherupload('episodes\\[new_'+index+'\\]\\[{{$id}}\\]', this).setGroup('file').setSavedPathField(xpath+'-savedpath').setPreprocessRoute('/aetherupload/preprocess').setUploadingRoute('/aetherupload/uploading').setLaxMode(false).success(function() {
+            var valueUrl = $(xpath+'-savedpath').val();
+                valueUrl = '/storage/uploads/' + valueUrl.replace(/_/g, '/');
+            $('#watch_linkvideo').attr('href', valueUrl);
+            }).upload('episodes\\[new_'+index+'\\]\\[{{$id}}\\]')
         });
+    }
 
 </script>
